@@ -9,6 +9,11 @@ public class MatrixMult {
         System.out.println("Starting experiment for n = " + num);
 
         int[][] strass = makeMatrix(num);
+
+        for (int i = 5; i < 10; i++) { // testing when to break
+            int time = mult(strass, i);
+
+        }
     }
 
     public static int[][] makeMatrix(int n) {
@@ -17,9 +22,7 @@ public class MatrixMult {
             for (int j = 0; j < n; j++) {
                 strass[i][j] = (int) Math.random() * 10;
             }
-
         }
-
         return strass;
     }
 
