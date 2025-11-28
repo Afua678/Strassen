@@ -1,6 +1,7 @@
 package Strassen;
 
 import java.util.Scanner;
+import java.lang.Math;
 
 public class MatrixMult {
     public static void main(String[] args) {
@@ -24,6 +25,23 @@ public class MatrixMult {
             }
         }
         return strass;
+    }
+
+    public static int[][] mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
+        int time = 0;
+        int[][] a = splitTopLeft(s);
+        int[][] b = splitTopRight(s);
+        int[][] c = splitBottomLeft(s);
+        int[][] d = splitBottomRight(s);
+
+        if (a.length < Math.pow(2, i)) {
+            // do regular multiplication
+            // and return it
+        } else {
+            // do strassen multiplication
+        }
+
+        return mult(a) + mult(b) + mult(c) + mult(d); // returns time
     }
 
 }
