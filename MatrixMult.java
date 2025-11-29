@@ -44,4 +44,16 @@ public class MatrixMult {
         return mult(a) + mult(b) + mult(c) + mult(d); // returns time
     }
 
+    public static int[][] splitTopLeft(int[][] s) {
+        int[][] n = new int[s.length / 2][s.length / 2];
+
+        for (int i = 0; i < n.length; i++) {
+            for (int j = 0; j < n.length; j++) {
+                n[i][j] = s[i][j];
+            }
+        }
+        return n;
+
+    }
+
 }
