@@ -29,7 +29,8 @@ public class MatrixMult {
         return strass;
     }
 
-    public static int mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
+    public static double mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
+        long start = System.currentTimeMillis();
         int time = 0;
         int[][] a = splitTopLeft(s);
         int[][] b = splitTopRight(s);
@@ -43,7 +44,12 @@ public class MatrixMult {
             strass(a, b, c, d); // performs strassen multiplication
         }
 
-        return mult(a) + mult(b) + mult(c) + mult(d); // returns time
+        mult(a);
+        mult(b);
+        mult(c);
+        mult(d); // do the methods
+        long end = System.currentTimeMillis();
+        return (end - start / 1000);
     }
 
     public static int[][] splitTopLeft(int[][] s) {
