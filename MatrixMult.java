@@ -36,9 +36,9 @@ public class MatrixMult {
 
         if (a.length < Math.pow(2, i)) {
             // do regular multiplication
-            // and return it
+            regMult(z);
         } else {
-            // do strassen multiplication
+            strass(a, b, c, d); // performs strassen multiplication
         }
 
         return mult(a) + mult(b) + mult(c) + mult(d); // returns time
@@ -54,6 +54,41 @@ public class MatrixMult {
         }
         return n;
 
+    }
+
+    public static int[][] splitTopRight(int[][] s) {
+        int[][] n = new int[s.length / 2][s.length / 2];
+
+        for (int i = 0; i < n.length; i++) {
+            for (int j = 0; j < n.length; j++) {
+                n[i][j] = s[i][n.length + j];
+            }
+        }
+        return n;
+
+    }
+
+    public static int[][] splitBottomLeft(int[][] s) {
+        int[][] n = new int[s.length / 2][s.length / 2];
+
+        for (int i = 0; i < n.length; i++) {
+            for (int j = 0; j < n.length; j++) {
+                n[i][j] = s[n.length + i][j];
+            }
+        }
+
+        return n;
+    }
+
+    public static int[][] splitBottomRight(int[][] s) {
+        int[][] n = new int[s.length / 2][s.length / 2];
+
+        for (int i = 0; i < n.length; i++) {
+            for (int j = 0; j < n.length; j++) {
+                n[i][j] = s[n.length + i][n.length + j];
+            }
+        }
+        return n;
     }
 
 }
