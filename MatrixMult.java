@@ -34,7 +34,7 @@ public class MatrixMult {
 
     public static int[][] mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
         
-        if (a.length < Math.pow(2, i)) {
+        if (A.length < Math.pow(2, i)) {
             bruteMult(A, B);
         }
 
