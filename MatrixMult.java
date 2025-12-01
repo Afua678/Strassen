@@ -14,17 +14,20 @@ public class MatrixMult {
         int[][] matrixB = makeMatrix(num);
 
         long start = System.currentTimeMillis();
-        mult(matrixA, matrixB, 4);
+        mult(matrixA, matrixB, 2);
         long end = System.currentTimeMillis();
-        double breakTime = (double)(end - start / 1000);
-        int minBreak = 4; 
+        double breakTime = ((end - start) / 1000.0);
+        int minBreak = 2; 
 
-        for (int i = 5; i < 10; i++) { // testing when to break
+        for (int i = 3; i < 10; i++) { // testing when to break
             start = System.currentTimeMillis();
             mult(matrixA, matrixB, i);
             end = System.currentTimeMillis();
-            double time = (double)(end - start / 1000);
-            if (time < breakTime) minBreak = i;
+            double time = ((end - start)/ 1000.0);
+            if (time < breakTime) {
+                breakTime = time;
+                minBreak = i;
+            }
             System.out.println("Time for breakover 2^" + i + ": " + time + " seconds");
         }
 
@@ -46,7 +49,7 @@ public class MatrixMult {
     public static int[][] mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
         
         if (A.length < Math.pow(2, i)) {
-            bruteMult(A, B);
+            return bruteMult(A, B);
         }
 
         // <---- STRASSEN TIME!!! ---->
