@@ -17,7 +17,7 @@ public class MatrixMult {
         mult(matrixA, matrixB, 4);
         long end = System.currentTimeMillis();
         double breakTime = (double)(end - start / 1000);
-        minBreak = 4; 
+        int minBreak = 4; 
 
         for (int i = 5; i < 10; i++) { // testing when to break
             start = System.currentTimeMillis();
@@ -30,6 +30,7 @@ public class MatrixMult {
 
         System.out.println("The optimal breakover is 2^" + minBreak);
 
+        scanner.close();
     }
 
     public static int[][] makeMatrix(int n) {
@@ -37,7 +38,6 @@ public class MatrixMult {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 matrix[i][j] = (int) (Math.random() * 10);
-                System.out.println(matrix[i][j]);
             }
         }
         return matrix;
@@ -78,7 +78,24 @@ public class MatrixMult {
         int[][] c11 = add(m1, add(m6, sub(m3, m2)));
         int[][] C = join(c00,c01, c10, c11);
         // Method ends after obtaining final product matrix C
+
+        return C;
         
+    }
+
+    private static int[][] bruteMult(int[][] A, int[][] B) {
+        int n = A.length;
+        int[][] product = new int[n][n];
+
+        for (int i = 0; i < product.length; i++) {
+            for (int j = 0; j < product.length; j++) {
+                for (int k = 0; k < product.length; k++) {
+                    product[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+
+        return product;
     }
     
     private static int[][] splitTopLeft(int[][] s) {
@@ -87,7 +104,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -100,7 +116,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][n.length + j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -113,7 +128,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][j];
-                System.out.println(n[i][j]);
             }
         }
 
@@ -126,7 +140,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][n.length + j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
