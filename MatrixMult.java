@@ -10,48 +10,57 @@ public class MatrixMult {
         int num = scanner.nextInt();
         System.out.println("Starting experiment for n = " + num);
 
-        int[][] strass = makeMatrix(num);
+        int[][] matrixA = makeMatrix(num);
+        int[][] matrixB = makeMatrix(num);
 
         for (int i = 5; i < 10; i++) { // testing when to break
-            int time = mult(strass, i);
+            int time = mult(matrixA, matrixB, i);
 
         }
     }
 
     public static int[][] makeMatrix(int n) {
-        int[][] strass = new int[n][n];
+        int[][] matrix = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                strass[i][j] = (int) (Math.random() * 10);
-                System.out.println(strass[i][j]);
+                matrix[i][j] = (int) (Math.random() * 10);
+                System.out.println(matrix[i][j]);
             }
         }
-        return strass;
+        return matrix;
     }
 
-    public static double mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
+    public static double mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
         long start = System.currentTimeMillis();
-        int time = 0;
-        int[][] a = splitTopLeft(s);
-        int[][] b = splitTopRight(s);
-        int[][] c = splitBottomLeft(s);
-        int[][] d = splitBottomRight(s);
-
+        
         if (a.length < Math.pow(2, i)) {
-            // do regular multiplication
-            regMult(z);
-        } else {
-            strass(a, b, c, d); // performs strassen multiplication
+            bruteMult(A, B);
         }
+
+        // <---- STRASSEN TIME!!! ---->
+
+        // Split into submatrices
+        int[][] a00 = splitTopLeft(A);
+        int[][] a01 = splitTopRight(A);
+        int[][] a10 = splitBottomLeft(A);
+        int[][] a11 = splitBottomRight(A);
+
+        int[][] b00 = splitTopLeft(B);
+        int[][] b01 = splitTopRight(B);
+        int[][] b10 = splitBottomLeft(B);
+        int[][] b11 = splitBottomRight(B);
+
+
 
         mult(a);
         mult(b);
         mult(c);
         mult(d); // do the methods
+        
         long end = System.currentTimeMillis();
-        return (end - start / 1000);
+        return (double)(end - start / 1000);
     }
-
+    
     public static int[][] splitTopLeft(int[][] s) {
         int[][] n = new int[s.length / 2][s.length / 2];
 
@@ -103,7 +112,23 @@ public class MatrixMult {
         return n;
     }
 
-    public static int strass(int[][] a, int[][] b, int[][] c, int[][] d) {
-        return time;
+    private static int[][] add(int[][] A, int[][] B) {
+        int n = A.length;
+        int[][] C = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                C[i][j] = A[i][j] + B[i][j];
+        return C;
     }
+
+    private static int[][] sub(int[][] A, int[][] B) {
+        int n = A.length;
+        int[][] C = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                C[i][j] = A[i][j] - B[i][j];
+        return C;
+    }
+
+    
 }
