@@ -5,6 +5,7 @@ import java.lang.Math;
 
 public class MatrixMult {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("What is your n?");
         int num = scanner.nextInt();
         System.out.println("Starting experiment for n = " + num);
@@ -21,13 +22,14 @@ public class MatrixMult {
         int[][] strass = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                strass[i][j] = (int) Math.random() * 10;
+                strass[i][j] = (int) (Math.random() * 10);
+                System.out.println(strass[i][j]);
             }
         }
         return strass;
     }
 
-    public static int[][] mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
+    public static int mult(int[][] s, int i) { // for this we are going to multiply our matrix by itself
         int time = 0;
         int[][] a = splitTopLeft(s);
         int[][] b = splitTopRight(s);
@@ -50,6 +52,7 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][j];
+                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -62,6 +65,7 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][n.length + j];
+                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -74,6 +78,7 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][j];
+                System.out.println(n[i][j]);
             }
         }
 
@@ -86,9 +91,13 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][n.length + j];
+                System.out.println(n[i][j]);
             }
         }
         return n;
     }
 
+    public static int strass(int[][] a, int[][] b, int[][] c, int[][] d) {
+        return time;
+    }
 }
