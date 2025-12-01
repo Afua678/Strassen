@@ -59,14 +59,14 @@ public class MatrixMult {
         int[][] m6 = strassen(sub(a10, a00), add(b00, b01));
         int[][] m7 = strassen(sub(a01, a11), add(b10, b11));
         
-        // Combining m values for final product matrix C
+        // Combining m values for matrix C
         int[][] c00 = add(m1,add(m7, sub(m4, m5)));
         int[][] c01 = add(m3, m5);
         int[][] c10 = add(m2, m4);
         int[][] c11 = add(m1, add(m6, sub(m3, m2)));
         int[][] C = join(c00,c01, c10, c11);
         
-        // Method ends after obtaining C
+        // Method ends after obtaining final product matrix C
         long end = System.currentTimeMillis();
         return (double)(end - start / 1000);
     }
