@@ -13,12 +13,23 @@ public class MatrixMult {
         int[][] matrixA = makeMatrix(num);
         int[][] matrixB = makeMatrix(num);
 
+        long start = System.currentTimeMillis();
+        mult(matrixA, matrixB, 4);
+        long end = System.currentTimeMillis();
+        double breakTime = (double)(end - start / 1000);
+        minBreak = 4; 
+
         for (int i = 5; i < 10; i++) { // testing when to break
-            long start = System.currentTimeMillis();
+            start = System.currentTimeMillis();
             mult(matrixA, matrixB, i);
-            long end = System.currentTimeMillis();
+            end = System.currentTimeMillis();
             double time = (double)(end - start / 1000);
+            if (time < breakTime) minBreak = i;
+            System.out.println("Time for breakover 2^" + i + ": " + time + " seconds");
         }
+
+        System.out.println("The optimal breakover is 2^" + minBreak);
+
     }
 
     public static int[][] makeMatrix(int n) {
