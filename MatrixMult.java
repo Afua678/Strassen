@@ -19,7 +19,7 @@ public class MatrixMult {
         double breakTime = ((end - start) / 1000.0);
         int minBreak = 2;
 
-        for (int i = 3; i < 10; i++) { // testing when to break
+        for (int i = 3; i < 1010; i++) { // testing when to break
             start = System.currentTimeMillis();
             mult(matrixA, matrixB, i);
             end = System.currentTimeMillis();
@@ -46,20 +46,10 @@ public class MatrixMult {
         return matrix;
     }
 
-    <<<<<<<HEAD
-
-    public static int mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
-        long start = System.currentTimeMillis();
-
-        if (a.length < Math.pow(2, i)) {
-            bruteMult(A, B);
-=======
-
     public static int[][] mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
-        
+
         if (A.length < Math.pow(2, i)) {
             return bruteMult(A, B);
->>>>>>> 5df6fe90e86a9e5b8800b436b7f0bd302e81cc09
         }
 
         // <---- STRASSEN TIME!!! ---->
@@ -78,29 +68,22 @@ public class MatrixMult {
         // Recursively computing m values
         int[][] m1 = mult(add(a00, a11), add(b00, b11), i);
         int[][] m2 = mult(add(a10, a11), b00, i);
-        int[][] m3 = mult(a00, sub(b01,b11), i);
+        int[][] m3 = mult(a00, sub(b01, b11), i);
         int[][] m4 = mult(a11, sub(b10, b00), i);
         int[][] m5 = mult(add(a00, a01), b11, i);
         int[][] m6 = mult(sub(a10, a00), add(b00, b01), i);
         int[][] m7 = mult(sub(a01, a11), add(b10, b11), i);
-        
+
         // Combining m values for matrix C
         int[][] c00 = add(m1, add(m7, sub(m4, m5)));
         int[][] c01 = add(m3, m5);
         int[][] c10 = add(m2, m4);
         int[][] c11 = add(m1, add(m6, sub(m3, m2)));
-<<<<<<< HEAD
         int[][] C = join(c00, c01, c10, c11);
-
-        // Method ends after obtaining final product matrix C
-        long end = System.currentTimeMillis();
-        return (double) (end - start / 1000);
-=======
-        int[][] C = join(c00,c01, c10, c11);
         // Method ends after obtaining final product matrix C
 
         return C;
-        
+
     }
 
     private static int[][] bruteMult(int[][] A, int[][] B) {
@@ -116,7 +99,6 @@ public class MatrixMult {
         }
 
         return product;
->>>>>>> 5df6fe90e86a9e5b8800b436b7f0bd302e81cc09
     }
 
     private static int[][] splitTopLeft(int[][] s) {
