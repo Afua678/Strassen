@@ -13,10 +13,27 @@ public class MatrixMult {
         int[][] matrixA = makeMatrix(num);
         int[][] matrixB = makeMatrix(num);
 
-        for (int i = 5; i < 10; i++) { // testing when to break
-            int time = mult(matrixA, matrixB, i);
+        long start = System.currentTimeMillis();
+        mult(matrixA, matrixB, 2);
+        long end = System.currentTimeMillis();
+        double breakTime = ((end - start) / 1000.0);
+        int minBreak = 2;
 
+        for (int i = 3; i < 10; i++) { // testing when to break
+            start = System.currentTimeMillis();
+            mult(matrixA, matrixB, i);
+            end = System.currentTimeMillis();
+            double time = ((end - start) / 1000.0);
+            if (time < breakTime) {
+                breakTime = time;
+                minBreak = i;
+            }
+            System.out.println("Time for breakover 2^" + i + ": " + time + " seconds");
         }
+
+        System.out.println("The optimal breakover is 2^" + minBreak);
+
+        scanner.close();
     }
 
     public static int[][] makeMatrix(int n) {
@@ -24,17 +41,25 @@ public class MatrixMult {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 matrix[i][j] = (int) (Math.random() * 10);
-                System.out.println(matrix[i][j]);
             }
         }
         return matrix;
     }
+
+    <<<<<<<HEAD
 
     public static int mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
         long start = System.currentTimeMillis();
 
         if (a.length < Math.pow(2, i)) {
             bruteMult(A, B);
+=======
+
+    public static int[][] mult(int[][] A, int[][] B, int i) { // for this we are going to multiply our matrix by itself
+        
+        if (A.length < Math.pow(2, i)) {
+            return bruteMult(A, B);
+>>>>>>> 5df6fe90e86a9e5b8800b436b7f0bd302e81cc09
         }
 
         // <---- STRASSEN TIME!!! ---->
@@ -51,24 +76,47 @@ public class MatrixMult {
         int[][] b11 = splitBottomRight(B);
 
         // Recursively computing m values
-        int[][] m1 = strassen(add(a00, a11), add(b00, b11));
-        int[][] m2 = strassen(add(a10, a11), b00);
-        int[][] m3 = strassen(a00, sub(b01, b11));
-        int[][] m4 = strassen(a11, sub(b10, b00));
-        int[][] m5 = strassen(add(a00, a01), b11);
-        int[][] m6 = strassen(sub(a10, a00), add(b00, b01));
-        int[][] m7 = strassen(sub(a01, a11), add(b10, b11));
-
+        int[][] m1 = mult(add(a00, a11), add(b00, b11), i);
+        int[][] m2 = mult(add(a10, a11), b00, i);
+        int[][] m3 = mult(a00, sub(b01,b11), i);
+        int[][] m4 = mult(a11, sub(b10, b00), i);
+        int[][] m5 = mult(add(a00, a01), b11, i);
+        int[][] m6 = mult(sub(a10, a00), add(b00, b01), i);
+        int[][] m7 = mult(sub(a01, a11), add(b10, b11), i);
+        
         // Combining m values for matrix C
         int[][] c00 = add(m1, add(m7, sub(m4, m5)));
         int[][] c01 = add(m3, m5);
         int[][] c10 = add(m2, m4);
         int[][] c11 = add(m1, add(m6, sub(m3, m2)));
+<<<<<<< HEAD
         int[][] C = join(c00, c01, c10, c11);
 
         // Method ends after obtaining final product matrix C
         long end = System.currentTimeMillis();
         return (double) (end - start / 1000);
+=======
+        int[][] C = join(c00,c01, c10, c11);
+        // Method ends after obtaining final product matrix C
+
+        return C;
+        
+    }
+
+    private static int[][] bruteMult(int[][] A, int[][] B) {
+        int n = A.length;
+        int[][] product = new int[n][n];
+
+        for (int i = 0; i < product.length; i++) {
+            for (int j = 0; j < product.length; j++) {
+                for (int k = 0; k < product.length; k++) {
+                    product[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+
+        return product;
+>>>>>>> 5df6fe90e86a9e5b8800b436b7f0bd302e81cc09
     }
 
     private static int[][] splitTopLeft(int[][] s) {
@@ -77,7 +125,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -90,7 +137,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[i][n.length + j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
@@ -103,7 +149,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][j];
-                System.out.println(n[i][j]);
             }
         }
 
@@ -116,7 +161,6 @@ public class MatrixMult {
         for (int i = 0; i < n.length; i++) {
             for (int j = 0; j < n.length; j++) {
                 n[i][j] = s[n.length + i][n.length + j];
-                System.out.println(n[i][j]);
             }
         }
         return n;
